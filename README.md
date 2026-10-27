@@ -40,27 +40,52 @@ FinCrime_Transaction_Graph/
 │   │   └── clustering.py    # Graph clustering to golden entities
 │   ├── features/            # Feature engineering
 │   │   └── graph_features.py
-│   └── detection/           # AML/Fraud detection
-│       └── heuristics.py
+│   ├── detection/           # AML/Fraud detection
+│   │   └── heuristics.py
+│   └── bigquery/            # BigQuery integration
+├── bigquery/                # BigQuery schemas, DDL, DML, ETL
 ├── sql/                     # SQL detection functions
-├── tests/                   # Unit tests
-└── notebooks/               # Analysis notebooks
+├── web/                     # PHP web GUI
+├── install/                 # Installation scripts
+├── data/                    # Data directories for ETL
+└── tests/                   # Unit tests
 ```
 
 ## Quick Start
 
+### Installation
+```bash
+./install.sh
+```
+
+### Python Usage
 ```python
 from src.er.pipeline import EntityResolutionPipeline
 from src.detection.heuristics import AMLFraudDetector
 
 # Run ER pipeline
 pipeline = EntityResolutionPipeline()
-golden_entities = pipeline.resolve(customers_df, transactions_df)
+resolved_customers, golden_entities = pipeline.resolve(customers_df, transactions_df)
 
 # Detect suspicious patterns
-detector = AMLFraudDetector(golden_entities, transactions_df)
+detector = AMLFraudDetector(resolved_customers, transactions_df)
 alerts = detector.run_all_detections()
 ```
+
+### BigQuery Usage
+```python
+from src.bigquery.bq_er_pipeline import BigQueryERPipeline
+
+bq_er = BigQueryERPipeline(match_threshold=0.75)
+resolved, golden = bq_er.run_with_historical_data(days_back=365)
+```
+
+### Web GUI
+```bash
+cd web
+php -S localhost:8080
+```
+Open `http://localhost:8080` in your browser.
 
 ## Requirements
 
@@ -71,23 +96,32 @@ alerts = detector.run_all_detections()
 - python-Levenshtein
 - jellyfish (for phonetic algorithms)
 - scikit-learn
-- sqlalchemy
+- google-cloud-bigquery
+- google-cloud-storage
+- pyarrow
+- db-dtypes
 
 See `requirements.txt` for full dependencies.
 
+## ETL Process
 
-## Web GUI
-
-A PHP-based web interface is included for easy usage.
-
-### Starting the Server
+Files are processed from `data/incoming/` using the ETL pipeline:
 ```bash
-cd web
-php -S localhost:8080
-# Or for remote access: php -S 0.0.0.0:8080
+cd /path/to/FinCrime_Transaction_Graph
+source venv/bin/activate
+python bigquery/etl/run_etl.py
 ```
 
-### Access
-Open `http://localhost:8080` in your browser. No authentication required.
+Files are automatically moved to `data/loaded/`, `data/rejected/`, or `data/unloaded/` with full validation and duplicate prevention.
 
-See [install/WEB_GUI_GUIDE.md](install/WEB_GUI_GUIDE.md) for detailed instructions.
+## Documentation
+
+- [Architecture](docs/ARCHITECTURE.md) - Detailed system design
+- [BigQuery Guide](bigquery/README.md) - BigQuery integration
+- [Installation](install/README.md) - Installation instructions
+- [Web GUI Guide](install/WEB_GUI_GUIDE.md) - Web interface usage
+- [ETL Quickstart](bigquery/etl/QUICKSTART_ETL.md) - ETL process
+
+## License
+
+See LICENSE file for details.

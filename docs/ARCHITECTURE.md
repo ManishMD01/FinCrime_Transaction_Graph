@@ -147,7 +147,7 @@ Build a directed graph where:
 
 **Red Flags:** Identity fragmentation, shared digital footprint, burst activity
 
-**Implementation:** `src/detection/heuristics.py`, `sql/detection_functions.sql`
+**Implementation:** `src/detection/heuristics.py`, `sql/detection_functions_bq.sql`
 
 ## Performance Considerations
 

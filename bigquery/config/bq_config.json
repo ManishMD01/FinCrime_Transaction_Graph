@@ -1,0 +1,30 @@
+{
+  "project_id": "your-gcp-project-id",
+  "dataset_id": "fincrime_er",
+  "location": "US",
+  "credentials_path": "${GOOGLE_APPLICATION_CREDENTIALS}",
+  "tables": {
+    "raw_customers": "raw_customers",
+    "raw_transactions": "raw_transactions",
+    "stg_customers": "stg_customers_standardized",
+    "stg_transactions": "stg_transactions_enriched",
+    "resolved_customers": "resolved_customers",
+    "golden_entities": "golden_entities",
+    "entity_graph": "entity_transaction_graph",
+    "entity_features": "entity_features",
+    "edge_features": "entity_edge_features",
+    "aml_alerts": "aml_alerts",
+    "alert_investigations": "alert_investigations"
+  },
+  "partitioning": {
+    "raw_customers": {"field": "load_date", "type": "DAY"},
+    "raw_transactions": {"field": "transaction_date", "type": "DAY"},
+    "aml_alerts": {"field": "alert_date", "type": "DAY"}
+  },
+  "clustering": {
+    "raw_customers": ["customer_id"],
+    "raw_transactions": ["sender_id", "receiver_id"],
+    "resolved_customers": ["golden_entity_id"],
+    "aml_alerts": ["golden_entity_id", "alert_type"]
+  }
+}

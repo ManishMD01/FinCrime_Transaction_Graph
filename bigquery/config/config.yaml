@@ -1,0 +1,48 @@
+# BigQuery Configuration
+# Update these values for your environment
+
+gcp:
+  project_id: "${GCP_PROJECT_ID:-your-gcp-project-id}"
+  dataset_id: "${BQ_DATASET_ID:-fincrime_er}"
+  location: "${BQ_LOCATION:-US}"
+  credentials_path: "${GOOGLE_APPLICATION_CREDENTIALS:-}"
+
+environment: "${ENVIRONMENT:-dev}"
+
+tables:
+  raw:
+    customers: "raw_customers"
+    transactions: "raw_transactions"
+  staging:
+    customers: "stg_customers_standardized"
+    transactions: "stg_transactions_enriched"
+    new_customers: "staging_new_customers"
+    new_transactions: "staging_new_transactions"
+  resolved:
+    customers: "resolved_customers"
+    golden_entities: "golden_entities"
+  graph:
+    edges: "entity_transaction_graph"
+    node_features: "entity_features"
+    edge_features: "entity_edge_features"
+  alerts:
+    alerts: "aml_alerts"
+    investigations: "alert_investigations"
+
+partitioning:
+  enabled: true
+  raw_customers: "load_date"
+  raw_transactions: "transaction_date"
+  alerts: "alert_date"
+
+clustering:
+  raw_customers:
+    - "customer_id"
+  raw_transactions:
+    - "sender_id"
+    - "receiver_id"
+  resolved_customers:
+    - "golden_entity_id"
+  alerts:
+    - "golden_entity_id"
+    - "alert_type"

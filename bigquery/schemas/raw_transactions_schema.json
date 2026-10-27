@@ -1,0 +1,17 @@
+[
+  {"name": "transaction_id", "type": "STRING", "mode": "REQUIRED", "description": "Transaction identifier"},
+  {"name": "sender_id", "type": "STRING", "mode": "NULLABLE", "description": "Sender customer ID"},
+  {"name": "receiver_id", "type": "STRING", "mode": "NULLABLE", "description": "Receiver customer ID"},
+  {"name": "amount", "type": "NUMERIC", "mode": "REQUIRED", "description": "Transaction amount"},
+  {"name": "currency", "type": "STRING", "mode": "NULLABLE", "description": "Currency code"},
+  {"name": "timestamp", "type": "TIMESTAMP", "mode": "REQUIRED", "description": "Transaction timestamp"},
+  {"name": "transaction_date", "type": "DATE", "mode": "REQUIRED", "description": "Transaction date for partitioning"},
+  {"name": "channel", "type": "STRING", "mode": "NULLABLE", "description": "Transaction channel (wire, ach, online, atm)"},
+  {"name": "location", "type": "STRING", "mode": "NULLABLE", "description": "Transaction location"},
+  {"name": "transaction_type", "type": "STRING", "mode": "NULLABLE", "description": "Transaction type"},
+  {"name": "beneficiary_account", "type": "STRING", "mode": "NULLABLE", "description": "Beneficiary account"},
+  {"name": "source_system", "type": "STRING", "mode": "NULLABLE", "description": "Source system"},
+  {"name": "load_date", "type": "DATE", "mode": "REQUIRED", "description": "ETL load date"},
+  {"name": "load_timestamp", "type": "TIMESTAMP", "mode": "REQUIRED", "description": "ETL load timestamp"},
+  {"name": "batch_id", "type": "STRING", "mode": "NULLABLE", "description": "Batch identifier"}
+]

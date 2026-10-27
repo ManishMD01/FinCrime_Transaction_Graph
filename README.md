@@ -74,3 +74,20 @@ alerts = detector.run_all_detections()
 - sqlalchemy
 
 See `requirements.txt` for full dependencies.
+
+
+## Web GUI
+
+A PHP-based web interface is included for easy usage.
+
+### Starting the Server
+```bash
+cd web
+php -S localhost:8080
+# Or for remote access: php -S 0.0.0.0:8080
+```
+
+### Access
+Open `http://localhost:8080` in your browser. No authentication required.
+
+See [install/WEB_GUI_GUIDE.md](install/WEB_GUI_GUIDE.md) for detailed instructions.

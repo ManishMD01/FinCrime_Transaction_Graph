@@ -86,3 +86,25 @@ When moving this project to a different machine, GCP account, or environment:
 ## Troubleshooting
 
 See `docs/TROUBLESHOOTING.md` for common issues.
+
+
+## Web GUI Access
+
+The PHP web interface is available for running the engine through a browser. **The installer does not start the PHP server automatically** - you must start it manually.
+
+### Quick Start
+```bash
+# Activate virtual environment (if not already)
+source venv/bin/activate
+
+# Start PHP server
+cd web
+php -S localhost:8080
+```
+
+### Access
+- **Local:** http://localhost:8080
+- **Remote/GCP VM:** http://<YOUR_SERVER_IP>:8080 (use `php -S 0.0.0.0:8080`)
+- **No login required** - Direct access to dashboard
+
+For detailed instructions, see [WEB_GUI_GUIDE.md](WEB_GUI_GUIDE.md).

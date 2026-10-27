@@ -1,0 +1,39 @@
+{
+  "reporting_thresholds": {
+    "CTR_US": {
+      "amount": 10000.00,
+      "currency": "USD",
+      "description": "Currency Transaction Report threshold - US",
+      "country": "US"
+    },
+    "CTR_CA": {
+      "amount": 10000.00,
+      "currency": "CAD",
+      "description": "Large Cash Transaction Report - Canada",
+      "country": "CA"
+    },
+    "SAR_TRIGGER": {
+      "amount": 5000.00,
+      "currency": "USD",
+      "description": "Suspicious Activity Report trigger amount",
+      "country": "US"
+    }
+  },
+  "structuring_threshold": 9900.00,
+  "structuring_detection": {
+    "min_transactions": 3,
+    "time_window_hours": 24,
+    "amount_range_min_percent": 0.8,
+    "amount_range_max_percent": 0.99
+  },
+  "money_mule_detection": {
+    "min_source_entities": 2,
+    "rapid_transfer_minutes": 60,
+    "pass_through_ratio": 0.7
+  },
+  "velocity_detection": {
+    "min_transactions": 5,
+    "time_window_minutes": 60,
+    "min_profile_count": 2
+  }
+}

@@ -1,0 +1,4 @@
+sanction_id,name,dob,aliases,country,reason,effective_date,status
+SAN001,JOHN DOE FAKE,1975-01-01,"JOHN D.,J.DOE","RU","Money Laundering",2020-01-01,ACTIVE
+SAN002,ACME SHELL CORP,,ACME GROUP,"PA","Terrorist Financing",2019-06-01,ACTIVE
+SAN003,IVAN SMIRNOV,1982-03-15,"I.SMIRNOV","RU","Sanctions Evasion",2021-03-01,ACTIVE

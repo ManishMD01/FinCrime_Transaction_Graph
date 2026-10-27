@@ -1,0 +1,10 @@
+channel_code,channel_name,channel_category,is_digital,risk_level
+WIRE,Wire Transfer,Wire,false,HIGH
+ACH,ACH Transfer,ACH,false,MEDIUM
+ONLINE,Online Banking,Online,true,MEDIUM
+ATM,ATM Withdrawal,ATM,false,LOW
+MOBILE,Mobile Banking,Mobile,true,MEDIUM
+SWIFT,SWIFT Transfer,Wire,false,HIGH
+RTGS,RTGS Transfer,Wire,false,HIGH
+CARD,Credit/Debit Card,Card,true,MEDIUM
+CRYPTO,Crypto Transfer,Crypto,true,HIGH

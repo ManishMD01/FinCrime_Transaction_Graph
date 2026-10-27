@@ -1,0 +1,9 @@
+transaction_type_code,transaction_type_name,description,risk_weight
+TRANSFER,Transfer,Funds transfer between accounts,1.0
+WITHDRAWAL,Withdrawal,Cash withdrawal,0.8
+DEPOSIT,Deposit,Cash deposit,0.5
+PAYMENT,Payment,Bill payment,0.6
+WIRE_OUT,Wire Outgoing,Outgoing wire transfer,1.5
+WIRE_IN,Wire Incoming,Incoming wire transfer,1.5
+INTERNATIONAL,International,International transfer,1.3
+CASH_DEPOSIT,Cash Deposit,Large cash deposit,1.4

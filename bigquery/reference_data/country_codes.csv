@@ -1,0 +1,21 @@
+country_code,country_name,iso_alpha3,region,is_high_risk
+US,United States,USA,North America,false
+CA,Canada,CAN,North America,false
+GB,United Kingdom,GBR,Europe,false
+DE,Germany,DEU,Europe,false
+FR,France,FRA,Europe,false
+JP,Japan,JPN,Asia,false
+SG,Singapore,SGP,Asia,false
+AE,United Arab Emirates,ARE,Middle East,false
+HK,Hong Kong,HKG,Asia,false
+CH,Switzerland,CHE,Europe,false
+PA,Panama,PAN,Central America,true
+KY,Cayman Islands,CYM,Caribbean,true
+VG,British Virgin Islands,VGB,Caribbean,true
+BS,Bahamas,BHS,Caribbean,true
+BVI,British Virgin Islands,VGB,Caribbean,true
+KY,Cayman Islands,CYM,Caribbean,true
+RU,Russia,RUS,Europe,true
+IR,Iran,IRN,Middle East,true
+KP,North Korea,PRK,Asia,true
+SY,Syria,SYR,Middle East,true

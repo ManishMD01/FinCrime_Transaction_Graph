@@ -95,3 +95,17 @@ resolved, golden = pipeline.resolve(customers_df)
 # Write results back to BigQuery
 bq.dataframe_to_table(resolved, 'resolved_customers', if_exists='append')
 ```
+
+
+## Reference Data
+
+Reference/lookup data files are stored in `bigquery/reference_data/` for use in the ETL process:
+- Country codes, currency codes, channel types
+- Transaction types with risk weights
+- High-risk countries and sanctions lists
+- AML reporting thresholds
+
+Load reference data with:
+```bash
+python bigquery/etl/load_reference_data.py
+```

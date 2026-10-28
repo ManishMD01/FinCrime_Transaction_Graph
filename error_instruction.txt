@@ -1,0 +1,11 @@
+cd ~/Git/FinCrime_Transaction_Graph
+source venv/bin/activate
+
+# Clear the credentials path
+sed -i 's|^GOOGLE_APPLICATION_CREDENTIALS=.*|GOOGLE_APPLICATION_CREDENTIALS=|' bigquery/config/.env
+
+unset GOOGLE_APPLICATION_CREDENTIALS
+
+gcloud auth list
+gcloud config get-value project
+

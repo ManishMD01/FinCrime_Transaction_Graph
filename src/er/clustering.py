@@ -3,7 +3,7 @@ Graph Clustering Module
 Merges resolved records into golden entities using connected components.
 """
 
-from typing import Dict, List, Set
+from typing import Dict, List, Set, Tuple
 import pandas as pd
 import networkx as nx
 

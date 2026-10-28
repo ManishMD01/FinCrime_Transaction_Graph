@@ -1,9 +1,4 @@
 #!/usr/bin/env python3
-"""
-Example usage of the FinCrime Entity Resolution Engine
-Demonstrates all three phases of the pipeline.
-"""
-
 import pandas as pd
 from src.er.pipeline import EntityResolutionPipeline
 from src.features.graph_features import TransactionGraphBuilder
@@ -38,21 +33,21 @@ def main():
     # Sample Transaction Logs
     transactions = pd.DataFrame({
         'transaction_id': list(range(2001, 2021)),
-        'sender_id': [1, 1, 1, 1, 1,  # Structuring pattern
-                      5, 6,  # Money mule pattern
-                      7, 7, 7, 7, 7,  # Velocity pattern
-                      2, 3, 4, 8, 1, 5],
+        'sender_id': [1, 1, 1, 1, 1,
+                      5, 6,
+                      7, 7, 7, 7, 7,
+                      2, 3, 4, 8, 1, 5, 2, 3],
         'receiver_id': [4, 4, 4, 4, 4,
                         7, 7,
                         5, 6, 1, 2, 4,
-                        6, 5, 5, 7, 8, 2],
-        'amount': [9500, 9400, 9600, 9300, 9800,  # Just below 10k
-                   15000, 14000,  # Mule receives
-                   2000, 2100, 1900, 2200, 2300,  # Rapid velocity
-                   3000, 4000, 5000, 6000, 1000, 2000],
-        'timestamp': pd.date_range('2024-01-01 08:00:00', periods=20, freq='2H'),
+                        6, 5, 5, 7, 8, 2, 4, 6],
+        'amount': [9500, 9400, 9600, 9300, 9800,
+                   15000, 14000,
+                   2000, 2100, 1900, 2200, 2300,
+                   3000, 4000, 5000, 6000, 1000, 2000, 1500, 2500],
+        'timestamp': pd.date_range('2024-01-01 08:00:00', periods=20, freq='2h'),
         'channel': ['wire'] * 5 + ['ach'] * 2 + ['online'] * 5 + ['wire'] * 8,
-        'location': ['NY'] * 5 + ['TX'] * 2 + ['FL'] * 5 + ['NY', 'TX', 'CA', 'WA', 'NY', 'TX'],
+        'location': ['NY'] * 5 + ['TX'] * 2 + ['FL'] * 5 + ['NY', 'TX', 'CA', 'WA', 'NY', 'TX', 'NY', 'CA'],
         'transaction_type': ['transfer'] * 20
     })
     

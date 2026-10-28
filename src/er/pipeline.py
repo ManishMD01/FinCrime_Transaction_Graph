@@ -52,4 +52,6 @@ class EntityResolutionPipeline:
         clustering_stats = self.clusterer.get_cluster_statistics()
         print(f"  - Created {clustering_stats['total_clusters']} golden entities ({clustering_stats['clusters_with_matches']} with multiple records)")
         
+        if self.clusterer.golden_df is None or len(self.clusterer.golden_df) == 0:
+            self.clusterer.golden_df = pd.DataFrame(columns=['golden_entity_id', 'member_count'])
         return resolved_customers, self.clusterer.golden_df

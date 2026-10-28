@@ -1,0 +1,5 @@
+{
+  "job_id": "job_bq_6ae208455e912",
+  "status": "error",
+  "error": "'EntityClusterer' object has no attribute 'golden_df'"
+}

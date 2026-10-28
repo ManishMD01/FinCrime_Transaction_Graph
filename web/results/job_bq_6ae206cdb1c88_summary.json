@@ -1,0 +1,5 @@
+{
+  "job_id": "job_bq_6ae206cdb1c88",
+  "status": "error",
+  "error": "single positional indexer is out-of-bounds"
+}

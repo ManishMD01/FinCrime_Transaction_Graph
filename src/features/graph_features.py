@@ -20,10 +20,13 @@ class TransactionGraphBuilder:
     
     def build_graph(self) -> nx.DiGraph:
         """Construct unified Customer-Transaction Graph."""
+        if len(self.customers) == 0:
+            return self.graph
         # Map customer IDs to golden entity IDs
         for _, row in self.customers.iterrows():
             cust_id = row['customer_id'] if 'customer_id' in row else row.name
-            self.customer_to_entity[cust_id] = row['golden_entity_id']
+            if 'golden_entity_id' in row:
+                self.customer_to_entity[cust_id] = row['golden_entity_id']
         
         # Add nodes for golden entities
         entity_ids = self.customers['golden_entity_id'].unique()
@@ -65,6 +68,8 @@ class TransactionGraphBuilder:
     def extract_node_features(self) -> pd.DataFrame:
         """Extract node features for golden entities."""
         features = []
+        if len(self.customers) == 0 or len(self.transactions) == 0:
+            return pd.DataFrame()
         
         # Aggregate transactions by entity
         self.transactions['sender_entity'] = self.transactions['sender_id'].map(self.customer_to_entity)

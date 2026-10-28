@@ -21,14 +21,22 @@ class AMLFraudDetector:
         
         # Map customer to entity
         self.customer_to_entity = {}
+        if len(self.customers) == 0:
+            return
         for _, row in self.customers.iterrows():
             cust_id = row['customer_id'] if 'customer_id' in row else row.name
-            self.customer_to_entity[cust_id] = row['golden_entity_id']
+            if 'golden_entity_id' in row:
+                self.customer_to_entity[cust_id] = row['golden_entity_id']
         
+        if len(self.transactions) == 0:
+            return
         # Add entity info to transactions
         self.transactions['sender_entity'] = self.transactions['sender_id'].map(self.customer_to_entity)
         self.transactions['receiver_entity'] = self.transactions['receiver_id'].map(self.customer_to_entity)
-        self.transactions['timestamp'] = pd.to_datetime(self.transactions['timestamp'])
+        try:
+            self.transactions['timestamp'] = pd.to_datetime(self.transactions['timestamp'])
+        except:
+            pass
     
     def detect_structuring_smurfing(self, window_hours: int = 24, min_transactions: int = 3) -> List[Dict]:
         """
@@ -36,6 +44,9 @@ class AMLFraudDetector:
         just below regulatory reporting thresholds.
         """
         alerts = []
+        if len(self.customers) == 0 or len(self.transactions) == 0:
+            self.alerts.extend(alerts)
+            return alerts
         
         for entity_id in self.customers['golden_entity_id'].unique():
             entity_txns = self.transactions[

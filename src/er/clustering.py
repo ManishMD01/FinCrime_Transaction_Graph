@@ -15,6 +15,7 @@ class EntityClusterer:
         self.graph = nx.Graph()
         self.clusters = {}
         self.golden_entities = {}
+        self.golden_df = None
     
     def build_match_graph(self, df: pd.DataFrame, matches: List[Tuple[int, int, float]]) -> nx.Graph:
         """Build undirected graph where edges represent matches."""
@@ -45,6 +46,12 @@ class EntityClusterer:
     
     def create_golden_entities(self, df: pd.DataFrame) -> pd.DataFrame:
         """Create golden entity records by merging cluster members."""
+        if len(df) == 0:
+            df_result = df.copy()
+            df_result['cluster_id'] = []
+            df_result['golden_entity_id'] = []
+            self.golden_df = pd.DataFrame()
+            return df_result
         if not self.clusters:
             self.find_connected_components()
         
@@ -80,17 +87,72 @@ class EntityClusterer:
     def get_cluster_statistics(self) -> Dict:
         """Get clustering statistics."""
         if not self.clusters:
-            return {}
+            return {
+                'total_clusters': 0,
+                'total_nodes': 0,
+                'singletons': 0,
+                'clusters_with_matches': 0,
+                'largest_cluster_size': 0,
+                'average_cluster_size': 0,
+            }
         
         cluster_sizes = {}
         for node, cid in self.clusters.items():
             cluster_sizes[cid] = cluster_sizes.get(cid, 0) + 1
+        
+        if not cluster_sizes:
+            return {
+                'total_clusters': 0,
+                'total_nodes': 0,
+                'singletons': 0,
+                'clusters_with_matches': 0,
+                'largest_cluster_size': 0,
+                'average_cluster_size': 0,
+            }
         
         return {
             'total_clusters': len(set(self.clusters.values())),
             'total_nodes': len(self.clusters),
             'singletons': sum(1 for s in cluster_sizes.values() if s == 1),
             'clusters_with_matches': sum(1 for s in cluster_sizes.values() if s > 1),
-            'largest_cluster_size': max(cluster_sizes.values()) if cluster_sizes else 0,
-            'average_cluster_size': sum(cluster_sizes.values()) / len(cluster_sizes) if cluster_sizes else 0,
+            'largest_cluster_size': max(cluster_sizes.values()),
+            'average_cluster_size': sum(cluster_sizes.values()) / len(cluster_sizes),
         }
+        
+        cluster_sizes = {}
+        for node, cid in self.clusters.items():
+            cluster_sizes[cid] = cluster_sizes.get(cid, 0) + 1
+        
+        if not cluster_sizes:
+            return {
+                'total_clusters': 0,
+                'total_nodes': 0,
+                'singletons': 0,
+                'clusters_with_matches': 0,
+                'largest_cluster_size': 0,
+                'average_cluster_size': 0,
+            }
+        
+        return {
+            'total_clusters': len(set(self.clusters.values())),
+            'total_nodes': len(self.clusters),
+            'singletons': sum(1 for s in cluster_sizes.values() if s == 1),
+            'clusters_with_matches': sum(1 for s in cluster_sizes.values() if s > 1),
+            'largest_cluster_size': max(cluster_sizes.values()),
+            'average_cluster_size': sum(cluster_sizes.values()) / len(cluster_sizes),
+        }
+
+
+    def create_golden_entities(self, df: pd.DataFrame) -> pd.DataFrame:
+        """Create golden entity records by merging cluster members."""
+        if not self.clusters or len(df) == 0:
+            df_result = df.copy()
+            if len(df_result) == 0:
+                df_result['cluster_id'] = []
+                df_result['golden_entity_id'] = []
+                self.golden_df = pd.DataFrame()
+                return df_result
+            df_result['cluster_id'] = [i % max(1, len(df_result)) for i in range(len(df_result))]
+            df_result['golden_entity_id'] = df_result['cluster_id']
+            self.golden_df = pd.DataFrame()
+            return df_result

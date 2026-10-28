@@ -1,0 +1,5 @@
+{
+  "job_id": "job_bq_6ae208c24f08b",
+  "status": "error",
+  "error": "'NoneType' object does not support item assignment"
+}

@@ -1,0 +1,5 @@
+{
+  "job_id": "job_bq_6ae2051635d13",
+  "status": "error",
+  "error": "404 Not found: Dataset nalen-458109:fincrime_er was not found in location US; reason: notFound, message: Not found: Dataset nalen-458109:fincrime_er was not found in location US\n\nLocation: US\nJob ID: 9266666f-5bf1-4a4f-ae1e-332d1c810450\n"
+}

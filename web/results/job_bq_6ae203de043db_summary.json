@@ -1,0 +1,5 @@
+{
+  "job_id": "job_bq_6ae203de043db",
+  "status": "error",
+  "error": "[Errno 2] No such file or directory: 'bigquery/config/bq_config.json'"
+}

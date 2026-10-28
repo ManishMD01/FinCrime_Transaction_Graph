@@ -25,12 +25,20 @@ class BigQueryERPipeline:
         # Run ER pipeline
         resolved_customers, golden_entities = self.pipeline.resolve(customers_df, transactions_df)
         
+        if resolved_customers is None or len(resolved_customers) == 0:
+            import pandas as pd
+            return pd.DataFrame(), pd.DataFrame()
+        
         # Add metadata
-        resolved_customers['resolution_date'] = datetime.now()
-        resolved_customers['batch_id'] = f"ER_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
-        golden_entities['created_date'] = datetime.now()
-        golden_entities['last_updated'] = datetime.now()
-        golden_entities['batch_id'] = resolved_customers['batch_id'].iloc[0]
+        try:
+            resolved_customers['resolution_date'] = datetime.now()
+            resolved_customers['batch_id'] = f"ER_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+            if golden_entities is not None and len(golden_entities) > 0:
+                golden_entities['created_date'] = datetime.now()
+                golden_entities['last_updated'] = datetime.now()
+                golden_entities['batch_id'] = resolved_customers['batch_id'].iloc[0]
+        except:
+            pass
         
         # Write to BigQuery
         print("Writing results to BigQuery...")

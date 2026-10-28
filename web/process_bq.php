@@ -12,7 +12,7 @@ $jobId = uniqid('job_bq_');
 $resultsDir = 'results/';
 if (!is_dir($resultsDir)) mkdir($resultsDir, 0755, true);
 
-$pythonScript = "/home/pritsingh000/Git/FinCrime_Transaction_Graph/web/run_bq_" . $jobId . ".py";
+$pythonScript = "/home/pritsingh000/Git/FinCrime_Transaction_Graph/web/run_fix.php";
 $scriptContent = <<<'PYEOF'
 #!/usr/bin/env python3
 import sys

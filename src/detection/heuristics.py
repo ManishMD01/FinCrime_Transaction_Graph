@@ -48,7 +48,11 @@ class AMLFraudDetector:
             self.alerts.extend(alerts)
             return alerts
         
+        if 'golden_entity_id' not in self.customers.columns:
+            return alerts
         for entity_id in self.customers['golden_entity_id'].unique():
+            if 'sender_entity' not in self.transactions.columns:
+                continue
             entity_txns = self.transactions[
                 self.transactions['sender_entity'] == entity_id
             ].copy()
@@ -103,6 +107,9 @@ class AMLFraudDetector:
         and immediately transferring to high-risk external entities.
         """
         alerts = []
+        if len(self.customers) == 0 or 'golden_entity_id' not in self.customers.columns:
+            self.alerts.extend(alerts)
+            return alerts
         
         for entity_id in self.customers['golden_entity_id'].unique():
             # Find inflows to this entity
@@ -165,6 +172,9 @@ class AMLFraudDetector:
         performing high-frequency transactions from same Device ID or IP.
         """
         alerts = []
+        if len(self.customers) == 0 or 'golden_entity_id' not in self.customers.columns:
+            self.alerts.extend(alerts)
+            return alerts
         
         for entity_id in self.customers['golden_entity_id'].unique():
             entity_customers = self.customers[

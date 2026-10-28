@@ -1,0 +1,12 @@
+{
+  "job_id": "job_bq_6ae20b462b19d",
+  "status": "success",
+  "mode": "bigquery",
+  "days_back": "30",
+  "total_customers": 0,
+  "golden_entities": 0,
+  "total_transactions": 10,
+  "graph_nodes": 0,
+  "graph_edges": 0,
+  "total_alerts": 0
+}

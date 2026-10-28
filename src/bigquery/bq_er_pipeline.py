@@ -28,6 +28,9 @@ class BigQueryERPipeline:
         if resolved_customers is None or len(resolved_customers) == 0:
             import pandas as pd
             return pd.DataFrame(), pd.DataFrame()
+        # Ensure golden_entity_id exists
+        if 'golden_entity_id' not in resolved_customers.columns:
+            resolved_customers['golden_entity_id'] = resolved_customers.index
         
         # Add metadata
         try:

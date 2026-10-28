@@ -15,42 +15,53 @@
 <body>
     <div class="header">
         <div class="container">
-            <h1><i class="fas fa-database"></i> FinCrime Entity Resolution - BigQuery</h1>
-            <p class="mb-0">AML & Fraud Detection from BigQuery Data</p>
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1><i class="fas fa-database"></i> FinCrime Entity Resolution - BigQuery</h1>
+                    <p class="mb-0">AML & Fraud Detection from BigQuery Data</p>
+                </div>
+                <a href="search.php" class="btn btn-light btn-lg">
+                    <i class="fas fa-search"></i> Search Customer / Transaction / Alert
+                </a>
+            </div>
         </div>
     </div>
 
     <div class="container mt-4">
         <div class="card">
             <div class="card-header bg-primary text-white">
-                <h5 class="mb-0"><i class="fas fa-search"></i> Run Detection on BigQuery Data</h5>
+                <h5 class="mb-0"><i class="fas fa-search"></i> Search Customer / Transaction / Alert ID</h5>
             </div>
             <div class="card-body">
-                <form action="process_bq.php" method="POST">
+                <form action="search_results.php" method="GET">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="mb-3">
-                                <label for="days_back" class="form-label"><strong>Historical Data Period</strong></label>
-                                <select class="form-select" id="days_back" name="days_back">
-                                    <option value="30">Last 30 Days</option>
-                                    <option value="90">Last 90 Days</option>
-                                    <option value="180">Last 180 Days</option>
-                                    <option value="365" selected>Last 365 Days</option>
-                                    <option value="all">All Historical Data</option>
+                                <label for="search_type" class="form-label"><strong>Search By</strong></label>
+                                <select class="form-select" id="search_type" name="search_type" required>
+                                    <option value="customer_id">Customer ID</option>
+                                    <option value="transaction_id">Transaction ID</option>
+                                    <option value="alert_id">Alert ID</option>
+                                    <option value="golden_entity_id">Golden Entity ID</option>
+                                    <option value="name">Customer Name</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-7">
                             <div class="mb-3">
-                                <label for="threshold" class="form-label">Match Threshold</label>
-                                <input type="range" class="form-range" id="threshold" name="threshold" min="0.5" max="0.95" step="0.05" value="0.75" oninput="thresholdValue.value = threshold.value">
-                                <output id="thresholdValue">0.75</output>
+                                <label for="search_term" class="form-label"><strong>Search Term</strong></label>
+                                <input type="text" class="form-control" id="search_term" name="search_term" placeholder="Enter ID or Name..." required>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label class="form-label">&nbsp;</label>
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="fas fa-search"></i> Search
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-lg">
-                        <i class="fas fa-play"></i> Run Entity Resolution & Fraud Detection
-                    </button>
                 </form>
             </div>
         </div>
@@ -95,10 +106,3 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-
-        <div class="text-center mt-4">
-            <a href="search.php" class="btn btn-outline-primary btn-lg">
-                <i class="fas fa-search"></i> Search by Customer / Transaction / Alert ID
-            </a>
-        </div>

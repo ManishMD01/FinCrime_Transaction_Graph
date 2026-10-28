@@ -95,9 +95,24 @@
                 </div>
             </div>
         </div>
+
     </div>
 
-    <footer class="mt-5 py-3 bg-dark text-white text-center">
+    <div class="container mt-4 mb-4">
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                <h5 class="mb-0"><i class="fas fa-exclamation-triangle"></i> AML Alerts Dashboard</h5>
+            </div>
+            <div class="card-body text-center">
+                <p>View all AML/Fraud alerts from BigQuery</p>
+                <a href="alerts.php" class="btn btn-danger btn-lg">
+                    <i class="fas fa-bell"></i> View Alerts
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="py-3 bg-dark text-white text-center">
         <div class="container">
             <small>FinCrime Entity Resolution Engine - BigQuery Mode</small>
         </div>

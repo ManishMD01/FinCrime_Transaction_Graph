@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+</head>
+<body>
+    <div id="mynetwork" style="width: 600px; height: 400px;"></div>
+    <script>
+        var nodes = new vis.DataSet([{id: 1, label: 'Node 1'}, {id: 2, label: 'Node 2'}]);
+        var edges = new vis.DataSet([{from: 1, to: 2}]);
+        var container = document.getElementById('mynetwork');
+        var data = {nodes: nodes, edges: edges};
+        var network = new vis.Network(container, data, {});
+    </script>
+</body>
+</html>

@@ -190,9 +190,11 @@ $searchTerm = isset($_GET['search_term']) ? $_GET['search_term'] : '';
                 <h5 class="mb-0"><i class="fas fa-share-alt"></i> Neural Network Transaction Graph</h5>
             </div>
             <div class="card-body">
-                <div id="networkGraph" style="width: 100%; height: 500px; border: 1px solid #ddd;"></div>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/vis-network.min.js"></script>
+                <div id="networkGraph" style="width: 100%; height: 500px; border: 1px solid #ddd; background: #fafafa;"></div>
+                <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
                 <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                    if (typeof vis === 'undefined') { document.getElementById('networkGraph').innerHTML = 'Graph library failed to load'; return; }
                     var nodes = new vis.DataSet([
                         {id: '<?php echo $custId; ?>', label: 'Customer\n<?php echo $custId; ?>', color: '#ff6b6b', shape: 'dot', size: 30}
                     ]);
@@ -229,7 +231,18 @@ $searchTerm = isset($_GET['search_term']) ? $_GET['search_term'] : '';
                         edges: {font: {size: 10, align: 'middle'}}
                     };
                     new vis.Network(container, data, options);
+                    });
                 </script>
             </div>
         </div>
         <?php endif; ?>
+
+        <script>
+        window.onload = function() {
+            if (typeof vis !== 'undefined') {
+                console.log('vis loaded');
+            } else {
+                console.log('vis not loaded');
+            }
+        };
+        </script>

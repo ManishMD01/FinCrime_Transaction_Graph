@@ -49,3 +49,46 @@ airflow dags trigger fincrime_complete_etl_pipeline
 
 ## DAG Location
 DAGs are in `airflow/dags/` and copied to AIRFLOW_HOME during setup.
+
+
+## Quick Start (Step by Step)
+
+### 1. Prepare Data
+Put your CSV files in `data/incoming/`:
+```bash
+cp customers.csv data/incoming/
+cp transactions.csv data/incoming/
+```
+Or use sample files:
+```bash
+cp data/airflow_input/customers.csv data/incoming/
+cp data/airflow_input/transactions.csv data/incoming/
+```
+
+### 2. Start Airflow
+```bash
+cd /home/pritsingh000/Git/FinCrime_Transaction_Graph
+export AIRFLOW_HOME=/home/pritsingh000/Git/FinCrime_Transaction_Graph/airflow
+source venv/bin/activate
+export GOOGLE_APPLICATION_CREDENTIALS=""
+airflow webserver -p 8080 &
+airflow scheduler &
+```
+
+### 3. Run via GUI
+1. Open http://localhost:8080
+2. Login with admin/admin
+3. Find DAG `fincrime_complete_etl_pipeline`
+4. Toggle it ON
+5. Click "Trigger DAG" (play button) to run manually
+
+### 4. Monitor
+- Check task logs in the DAG graph view
+- Files move from `data/incoming/` to `data/loaded/` on success
+- Alerts appear in BigQuery `aml_alerts` table and GUI
+
+### Stop Airflow
+```bash
+pkill -f "airflow webserver"
+pkill -f "airflow scheduler"
+```

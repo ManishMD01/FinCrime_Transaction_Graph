@@ -1,3 +1,6 @@
 #!/bin/bash
-# Trigger ETL via Airflow CLI
-airflow dags trigger fincrime_er_aml_etl
+PROJECT_ROOT="/home/pritsingh000/Git/FinCrime_Transaction_Graph"
+export AIRFLOW_HOME=$PROJECT_ROOT/airflow
+cd $PROJECT_ROOT
+source venv/bin/activate
+airflow dags trigger fincrime_complete_etl_pipeline

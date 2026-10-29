@@ -1,0 +1,10 @@
+./start_airflow.sh: line 25: airflow: command not found
+Traceback (most recent call last):
+  File "/home/pritsingh000/Git/FinCrime_Transaction_Graph/venv/bin/apache-airflow", line 3, in <module>
+    from airflow.__main__ import main
+ModuleNotFoundError: No module named 'airflow.__main__'
+Traceback (most recent call last):
+  File "/home/pritsingh000/Git/FinCrime_Transaction_Graph/venv/bin/apache-airflow", line 3, in <module>
+    from airflow.__main__ import main
+ModuleNotFoundError: No module named 'airflow.__main__'
+/home/pritsingh000/Git/FinCrime_Transaction_Graph/venv/bin/python: No module named airflow.__main__; 'airflow' is a package and cannot be directly executed

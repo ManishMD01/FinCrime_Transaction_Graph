@@ -77,3 +77,8 @@ echo "3. python bigquery/etl/setup_bigquery.py"
 echo "4. python example_usage.py"
 echo "5. cd web && php -S localhost:8080"
 echo "6. Airflow: export AIRFLOW_HOME=$PROJECT_ROOT/airflow && airflow webserver -p 8080 & airflow scheduler &"
+
+# Helper functions
+print_info() { echo -e "${BLUE}[INFO]${NC} $1"; }
+print_status() { echo -e "${GREEN}[✓]${NC} $1"; }
+print_warning() { echo -e "${YELLOW}[!]${NC} $1"; }

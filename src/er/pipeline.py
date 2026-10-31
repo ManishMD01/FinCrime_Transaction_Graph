@@ -49,8 +49,8 @@ class EntityResolutionPipeline:
         self.clusterer.build_match_graph(customers_std, self.matches)
         self.clusterer.find_connected_components()
         resolved_customers = self.clusterer.create_golden_entities(customers_std)
-        clustering_stats = self.clusterer.get_cluster_statistics()
-        print(f"  - Created {clustering_stats['total_clusters']} golden entities ({clustering_stats['clusters_with_matches']} with multiple records)")
+        clustering_stats = self.clusterer.get_cluster_statistics() or {}
+        print(f"  - Created {clustering_stats.get('total_clusters', 0)} golden entities ({clustering_stats.get('clusters_with_matches', 0)} with multiple records)")
         
         if self.clusterer.golden_df is None or len(self.clusterer.golden_df) == 0:
             self.clusterer.golden_df = pd.DataFrame(columns=['golden_entity_id', 'member_count'])

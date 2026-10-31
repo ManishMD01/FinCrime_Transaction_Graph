@@ -9,3 +9,5 @@ unset GOOGLE_APPLICATION_CREDENTIALS
 gcloud auth list
 gcloud config get-value project
 
+gcloud auth application-default login
+gcloud config set project nalen-458109

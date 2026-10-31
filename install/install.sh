@@ -47,27 +47,32 @@ if [ ! -f "$CONFIG_DIR/.env" ]; then
 else
   echo -e "${GREEN}[✓]${NC} .env exists"
 fi
-# Airflow Setup
-echo -e "\n${BLUE}Step 8: Apache Airflow Setup${NC}"
+
+
+
+# Step 6: Load AML/Sample Datasets
+echo -e "\n${BLUE}Step 6: Load Sample AML Datasets${NC}"
 echo "=============================="
-echo -e "${YELLOW}Do you want to install Apache Airflow? (y/n)${NC}"
-read -r install_airflow
-if [ "$install_airflow" = "y" ] || [ "$install_airflow" = "Y" ]; then
-    print_info "Installing Apache Airflow..."
-    pip install apache-airflow==2.7.3 2>&1 | tail -5
-    export AIRFLOW_HOME=$PROJECT_ROOT/airflow
-    airflow db init 2>&1 | tail -3
-    mkdir -p $AIRFLOW_HOME/dags
-    cp $PROJECT_ROOT/airflow/dags/*.py $AIRFLOW_HOME/dags/ 2>/dev/null
-    print_status "Airflow installed"
-    echo -e "${BLUE}To start Airflow:${NC}"
-    echo "  export AIRFLOW_HOME=$PROJECT_ROOT/airflow"
-    echo "  airflow webserver -p 8080 &"
-    echo "  airflow scheduler &"
+echo -e "${YELLOW}Do you want to load sample AML datasets into BigQuery? (y/n)${NC}"
+read -r load_datasets
+if [ "$load_datasets" = "y" ] || [ "$load_datasets" = "Y" ]; then
+    print_info "Loading reference data..."
+    python "$PROJECT_ROOT/bigquery/etl/load_reference_data.py" 2>&1 | tail -15 || true
+    print_info "Loading sample historical data..."
+    (cd "$PROJECT_ROOT" && python -c "
+from bigquery.etl.load_historical_data import HistoricalDataLoader
+import os
+loader = HistoricalDataLoader()
+if os.path.exists('data/incoming/customers.csv'):
+    loader.load_customers_from_csv('data/incoming/customers.csv', source_system='SAMPLE_AML')
+if os.path.exists('data/incoming/transactions.csv'):
+    loader.load_transactions_from_csv('data/incoming/transactions.csv', source_system='SAMPLE_AML')
+" 2>&1 | tail -20) || true
+    print_status "Sample datasets loaded"
 else
-    print_warning "Airflow installation skipped"
+    print_warning "Dataset loading skipped"
 fi
-echo ""
+
 echo -e "${GREEN}Installation Complete!${NC}"
 echo ""
 echo "Next steps:"
@@ -76,7 +81,6 @@ echo "2. Update bigquery/config/.env with GCP credentials"
 echo "3. python bigquery/etl/setup_bigquery.py"
 echo "4. python example_usage.py"
 echo "5. cd web && php -S localhost:8080"
-echo "6. Airflow: export AIRFLOW_HOME=$PROJECT_ROOT/airflow && airflow webserver -p 8080 & airflow scheduler &"
 
 # Helper functions
 print_info() { echo -e "${BLUE}[INFO]${NC} $1"; }
